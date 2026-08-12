@@ -55,45 +55,34 @@
             z-index: 2;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
+            width: 100%;
+            max-width: 320px;
         }
 
-        /* الحاوية الرئيسية للقلب مع تحجيم احترافي متجاوب للموبايل */
+        /* الحاوية الرئيسية للقلب - تم تصغيرها وضبط إحداثياتها لتظهر كاملة تماماً على الموبايل */
         .container {
             position: relative;
-            width: 500px;
-            height: 450px;
-            transform: scale(0.62);
-            transform-origin: center;
+            width: 300px;
+            height: 280px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        @media (min-width: 400px) {
-            .container {
-                transform: scale(0.75);
-            }
-        }
-
-        @media (min-width: 600px) {
-            .container {
-                transform: scale(1);
-            }
-        }
-
-        /* الوردة الفردية المتحركة */
+        /* الوردة الفردية المتحركة مع مسار مصغر ومناسب للموبايل */
         .rose-particle {
             position: absolute;
-            --rose-size: 14px;
+            --rose-size: 11px;
             width: var(--rose-size);
             height: var(--rose-size);
             background: radial-gradient(circle, #ff3366 20%, #990022 90%);
             border-radius: 50%;
-            box-shadow: 0 0 8px #ff3366, 0 0 15px #ff1a40;
+            box-shadow: 0 0 6px #ff3366, 0 0 12px #ff1a40;
             opacity: 0;
             pointer-events: none;
             
-            offset-path: path('M 275,90 C 275,40 190,-10 130,-10 C 40,-10 -20,80 -20,160 C -20,260 90,340 275,470 C 460,340 570,260 570,160 C 570,80 510,-10 420,-10 C 360,-10 275,40 275,90 Z');
+            /* مسار مصغر خصيصاً ليناسب حاوية الموبايل (300x280) ويظهر القلب بأكمله بالمطابقة */
+            offset-path: path('M 150,50 C 150,22 104,-5 71,-5 C 22,-5 -11,44 -11,88 C -11,143 49,186 150,258 C 251,186 311,143 311,88 C 311,44 278,-5 229,-5 C 196,-5 150,22 150,50 Z');
             
             animation: travelAndStay 3.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
@@ -118,11 +107,11 @@
             }
         }
 
-        /* التوهج الخلفي */
+        /* التوهج الخلفي متناسب مع القلب */
         .heart-glow {
             position: absolute;
-            width: 380px;
-            height: 380px;
+            width: 240px;
+            height: 240px;
             background: radial-gradient(circle, rgba(255, 51, 102, 0.4) 0%, rgba(255, 0, 85, 0.1) 50%, rgba(0, 0, 0, 0) 80%);
             opacity: 0;
             z-index: 1;
@@ -136,37 +125,37 @@
 
         @keyframes pulseGlow {
             0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 0 20px rgba(255,51,102,0.8)); }
+            50% { transform: scale(1.12); opacity: 1; filter: drop-shadow(0 0 15px rgba(255,51,102,0.8)); }
         }
 
-        /* النصوص */
+        /* النصوص تحت القلب بمسافة آمنة ومتناسقة */
         .signature-wrapper {
             position: relative;
             z-index: 3;
-            margin-top: 10px;
+            margin-top: 18px;
             text-align: center;
-            padding: 0 15px;
+            padding: 0 10px;
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(20px);
             animation: revealText 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4.5s forwards;
         }
 
         .signature-text {
-            font-size: clamp(1.1rem, 4.5vw, 2.2rem);
+            font-size: clamp(1.1rem, 4.2vw, 1.5rem);
             font-weight: 800;
             background: linear-gradient(135deg, #ff99bb, #ff1a40, #ff99bb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
+            text-shadow: 0 0 15px rgba(255, 51, 102, 0.6);
             letter-spacing: 1px;
             line-height: 1.3;
         }
 
         .sub-text {
-            font-size: clamp(0.75rem, 2.5vw, 1.1rem);
+            font-size: clamp(0.75rem, 2.5vw, 0.95rem);
             color: rgba(255, 255, 255, 0.75);
             letter-spacing: 3px;
-            margin-top: 5px;
+            margin-top: 4px;
             text-transform: uppercase;
         }
 
@@ -213,7 +202,7 @@
 
     <script>
         const starsContainer = document.getElementById('starsContainer');
-        const numStars = window.innerWidth < 768 ? 40 : 80;
+        const numStars = window.innerWidth < 768 ? 35 : 80;
         for (let i = 0; i < numStars; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
@@ -251,7 +240,7 @@
         document.addEventListener('touchend', () => { stage.style.transform = 'rotateY(0deg) rotateX(0deg)'; });
 
         const container = document.getElementById('heartContainer');
-        const totalRoses = 220;
+        const totalRoses = 200;
         let currentIndex = 0;
 
         function createRose() {
@@ -267,7 +256,7 @@
             currentIndex++;
             if (currentIndex <= totalRoses) { setTimeout(createRose, 18); }
         }
-        setTimeout(createRose, 500);
+        setTimeout(createRose, 400);
 
         const canvas = document.getElementById('fireworks');
         const ctx = canvas.getContext('2d');
@@ -280,7 +269,7 @@
             constructor(x, y, color) {
                 this.x = x; this.y = y; this.color = color;
                 const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * (window.innerWidth < 768 ? 4 : 6) + 2;
+                const speed = Math.random() * (window.innerWidth < 768 ? 3 : 6) + 2;
                 this.vx = Math.cos(angle) * speed; this.vy = Math.sin(angle) * speed;
                 this.alpha = 1; this.decay = Math.random() * 0.015 + 0.010;
             }
@@ -290,7 +279,7 @@
 
         function explode(x, y) {
             const colors = ['#ff3366', '#ff99bb', '#ff1a40', '#ffffff', '#ffcc00'];
-            const count = window.innerWidth < 768 ? 25 : 40;
+            const count = window.innerWidth < 768 ? 20 : 40;
             for (let i = 0; i < count; i++) { particles.push(new FireworkParticle(x, y, colors[Math.floor(Math.random() * colors.length)])); }
         }
 
