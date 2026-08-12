@@ -55,22 +55,24 @@
             z-index: 2;
             transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
+            /* إزاحة لليمين بمقدار 25 بكسل */
+            transform: translateX(25px);
         }
 
-        /* الحاوية الرئيسية للقلب - تم تصغيرها وجعلها متمركزة بدقة تامة */
+        /* الحاوية الرئيسية للقلب بحجم مثالي وصغير */
         .container {
             position: relative;
-            width: 220px;
-            height: 200px;
+            width: 200px;
+            height: 190px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        /* الوردة الفردية المتحركة مع مسار مصغر يضمن ظهور القلب كاملاً بمنتصف الشاشة */
+        /* الوردة الفردية المتحركة مع مسار دقيق ومتوازن */
         .rose-particle {
             position: absolute;
-            --rose-size: 9px;
+            --rose-size: 8px;
             width: var(--rose-size);
             height: var(--rose-size);
             background: radial-gradient(circle, #ff3366 20%, #990022 90%);
@@ -79,7 +81,7 @@
             opacity: 0;
             pointer-events: none;
             
-            offset-path: path('M 110,36 C 110,16 76,-4 52,-4 C 16,-4 -8,32 -8,64 C -8,104 36,136 110,188 C 184,136 228,104 228,64 C 228,32 204,-4 168,-4 C 144,-4 110,16 110,36 Z');
+            offset-path: path('M 100,32 C 100,14 70,-4 47,-4 C 14,-4 -7,28 -7,56 C -7,91 32,119 100,164 C 168,119 207,91 207,56 C 207,28 186,-4 153,-4 C 130,-4 100,14 100,32 Z');
             
             animation: travelAndStay 3.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
         }
@@ -104,11 +106,11 @@
             }
         }
 
-        /* التوهج الخلفي متناسب تماماً مع الحجم الجديد */
+        /* التوهج الخلفي */
         .heart-glow {
             position: absolute;
-            width: 180px;
-            height: 180px;
+            width: 160px;
+            height: 160px;
             background: radial-gradient(circle, rgba(255, 51, 102, 0.4) 0%, rgba(255, 0, 85, 0.1) 50%, rgba(0, 0, 0, 0) 80%);
             opacity: 0;
             z-index: 1;
@@ -125,7 +127,7 @@
             50% { transform: scale(1.12); opacity: 1; filter: drop-shadow(0 0 12px rgba(255,51,102,0.8)); }
         }
 
-        /* النصوص تحت القلب بمسافة آمنة ومرتبة */
+        /* النصوص تحت القلب مع إزاحة متناسقة لليمين */
         .signature-wrapper {
             position: relative;
             z-index: 3;
@@ -133,12 +135,12 @@
             text-align: center;
             padding: 0 10px;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translate(25px, 20px);
             animation: revealText 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4.5s forwards;
         }
 
         .signature-text {
-            font-size: clamp(1rem, 4vw, 1.35rem);
+            font-size: clamp(0.95rem, 3.8vw, 1.25rem);
             font-weight: 800;
             background: linear-gradient(135deg, #ff99bb, #ff1a40, #ff99bb);
             -webkit-background-clip: text;
@@ -149,7 +151,7 @@
         }
 
         .sub-text {
-            font-size: clamp(0.7rem, 2.2vw, 0.9rem);
+            font-size: clamp(0.65rem, 2vw, 0.85rem);
             color: rgba(255, 255, 255, 0.75);
             letter-spacing: 3px;
             margin-top: 4px;
@@ -159,7 +161,7 @@
         @keyframes revealText {
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate(25px, 0);
             }
         }
 
@@ -176,7 +178,6 @@
         @media (hover: none) {
             .stage {
                 transition: none;
-                transform: none !important;
             }
         }
     </style>
@@ -216,28 +217,8 @@
             starsContainer.appendChild(star);
         }
 
-        const stage = document.getElementById('stage');
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth >= 768) {
-                const xAxis = (window.innerWidth / 2 - e.pageX) / 30;
-                const yAxis = (window.innerHeight / 2 - e.pageY) / 30;
-                stage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            }
-        });
-
-        document.addEventListener('touchmove', (e) => {
-            if (e.touches.length > 0) {
-                const touch = e.touches[0];
-                const xAxis = (window.innerWidth / 2 - touch.pageX) / 50;
-                const yAxis = (window.innerHeight / 2 - touch.pageY) / 50;
-                stage.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
-            }
-        });
-        
-        document.addEventListener('touchend', () => { stage.style.transform = 'rotateY(0deg) rotateX(0deg)'; });
-
         const container = document.getElementById('heartContainer');
-        const totalRoses = 180;
+        const totalRoses = 160;
         let currentIndex = 0;
 
         function createRose() {
