@@ -11,7 +11,8 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
+            width: 100%;
             height: 100vh;
             height: 100dvh;
             background: radial-gradient(circle at center, #150015 0%, #050005 60%, #000000 100%);
@@ -56,20 +57,34 @@
             transition: transform 0.1s ease-out;
         }
 
-        /* الحاوية الرئيسية للقلب - تم تصغيرها قليلاً لتناسب الموبايل بالكامل */
+        /* الحاوية الرئيسية للقلب مع تحجيم احترافي متجاوب للموبايل */
         .container {
             position: relative;
-            width: min(420px, 85vw);
-            height: min(380px, 50vh);
+            width: 500px;
+            height: 450px;
+            transform: scale(0.62);
+            transform-origin: center;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
+        @media (min-width: 400px) {
+            .container {
+                transform: scale(0.75);
+            }
+        }
+
+        @media (min-width: 600px) {
+            .container {
+                transform: scale(1);
+            }
+        }
+
         /* الوردة الفردية المتحركة */
         .rose-particle {
             position: absolute;
-            --rose-size: min(12px, 3.5vw);
+            --rose-size: 14px;
             width: var(--rose-size);
             height: var(--rose-size);
             background: radial-gradient(circle, #ff3366 20%, #990022 90%);
@@ -106,8 +121,8 @@
         /* التوهج الخلفي */
         .heart-glow {
             position: absolute;
-            width: min(320px, 65vw);
-            height: min(320px, 65vw);
+            width: 380px;
+            height: 380px;
             background: radial-gradient(circle, rgba(255, 51, 102, 0.4) 0%, rgba(255, 0, 85, 0.1) 50%, rgba(0, 0, 0, 0) 80%);
             opacity: 0;
             z-index: 1;
@@ -128,16 +143,16 @@
         .signature-wrapper {
             position: relative;
             z-index: 3;
-            margin-top: 15px;
+            margin-top: 10px;
             text-align: center;
-            padding: 0 10px;
+            padding: 0 15px;
             opacity: 0;
             transform: translateY(30px);
             animation: revealText 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 4.5s forwards;
         }
 
         .signature-text {
-            font-size: clamp(1.2rem, 4.5vw, 2.2rem);
+            font-size: clamp(1.1rem, 4.5vw, 2.2rem);
             font-weight: 800;
             background: linear-gradient(135deg, #ff99bb, #ff1a40, #ff99bb);
             -webkit-background-clip: text;
@@ -148,7 +163,7 @@
         }
 
         .sub-text {
-            font-size: clamp(0.8rem, 2.2vw, 1.1rem);
+            font-size: clamp(0.75rem, 2.5vw, 1.1rem);
             color: rgba(255, 255, 255, 0.75);
             letter-spacing: 3px;
             margin-top: 5px;
