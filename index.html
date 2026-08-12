@@ -13,6 +13,7 @@
 
         body {
             height: 100vh;
+            height: 100dvh;
             background: radial-gradient(circle at center, #150015 0%, #050005 60%, #000000 100%);
             display: flex;
             flex-direction: column;
@@ -55,21 +56,20 @@
             transition: transform 0.1s ease-out;
         }
 
-        /* الحاوية الرئيسية للقلب - تم تكبيرها قليلاً لضمان التوزيع الصحيح */
+        /* الحاوية الرئيسية للقلب - تم تصغيرها قليلاً لتناسب الموبايل بالكامل */
         .container {
             position: relative;
-            width: min(550px, 95vw);
-            height: min(500px, 90vh);
+            width: min(420px, 85vw);
+            height: min(380px, 50vh);
             display: flex;
             justify-content: center;
             align-items: center;
-            /* background-color: rgba(255,255,255,0.1); /* للإرشاد فقط */
         }
 
         /* الوردة الفردية المتحركة */
         .rose-particle {
             position: absolute;
-            --rose-size: min(14px, 4vw);
+            --rose-size: min(12px, 3.5vw);
             width: var(--rose-size);
             height: var(--rose-size);
             background: radial-gradient(circle, #ff3366 20%, #990022 90%);
@@ -78,7 +78,6 @@
             opacity: 0;
             pointer-events: none;
             
-            /* مسار القلب المصحح ليعمل مع النسب المئوية في container متجاوب */
             offset-path: path('M 275,90 C 275,40 190,-10 130,-10 C 40,-10 -20,80 -20,160 C -20,260 90,340 275,470 C 460,340 570,260 570,160 C 570,80 510,-10 420,-10 C 360,-10 275,40 275,90 Z');
             
             animation: travelAndStay 3.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
@@ -107,8 +106,8 @@
         /* التوهج الخلفي */
         .heart-glow {
             position: absolute;
-            width: min(400px, 70vw);
-            height: min(400px, 70vw);
+            width: min(320px, 65vw);
+            height: min(320px, 65vw);
             background: radial-gradient(circle, rgba(255, 51, 102, 0.4) 0%, rgba(255, 0, 85, 0.1) 50%, rgba(0, 0, 0, 0) 80%);
             opacity: 0;
             z-index: 1;
@@ -129,7 +128,7 @@
         .signature-wrapper {
             position: relative;
             z-index: 3;
-            margin-top: 20px;
+            margin-top: 15px;
             text-align: center;
             padding: 0 10px;
             opacity: 0;
@@ -138,21 +137,21 @@
         }
 
         .signature-text {
-            font-size: clamp(1.4rem, 5vw, 2.8rem);
+            font-size: clamp(1.2rem, 4.5vw, 2.2rem);
             font-weight: 800;
             background: linear-gradient(135deg, #ff99bb, #ff1a40, #ff99bb);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(255, 51, 102, 0.6);
-            letter-spacing: 2px;
-            line-height: 1.4;
+            letter-spacing: 1px;
+            line-height: 1.3;
         }
 
         .sub-text {
-            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
+            font-size: clamp(0.8rem, 2.2vw, 1.1rem);
             color: rgba(255, 255, 255, 0.75);
-            letter-spacing: 4px;
-            margin-top: 8px;
+            letter-spacing: 3px;
+            margin-top: 5px;
             text-transform: uppercase;
         }
 
@@ -199,7 +198,7 @@
 
     <script>
         const starsContainer = document.getElementById('starsContainer');
-        const numStars = window.innerWidth < 768 ? 50 : 80;
+        const numStars = window.innerWidth < 768 ? 40 : 80;
         for (let i = 0; i < numStars; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
